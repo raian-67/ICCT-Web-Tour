@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICCT Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <header class="dashboard-header">
+
+        <div class="logo">
+            <span class="logo-main">ICCT</span>
+            <span class="logo-sub">COLLEGES</span>
+        </div>
+
+        <a href="#" class="logout-btn" id="logoutBtn">Logout</a>
+
+    </header>
+
+    <main class="dashboard-container">
+
+        <section class="welcome-card">
+            <h1 id="welcome-message">Welcome!</h1>
+
+            <p>
+                Explore campus information, school updates, and continue
+                your ICCT virtual tour experience.
+            </p>
+        </section>
+
+        <section class="profile-card">
+
+            <img src="https://via.placeholder.com/100" alt="Profile Picture">
+
+            <div>
+                <h2>Student Profile</h2>
+
+                <p>
+                    <strong>Name:</strong>
+                    <span id="student-name">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="student-email">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Role:</strong>
+                    Student
+                </p>
+            </div>
+
+        </section>
+
+        <section class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h2>Quick Stats</h2>
+
+                <ul>
+                    <li>
+                        Logged in count:
+                        <span id="login-count">0</span>
+                    </li>
+
+                    <li>
+                        Web visits:
+                        <span id="web-visits">1</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="dashboard-card">
+                <h2>Quick Links</h2>
+
+                <ul>
+                    <li><a href="index.html">Home page</a></li>
+                    <li><a href="features.html">Virtual Tour</a></li>
+                    <li><a href="about.html">About ICCT</a></li>
+                    <li><a href="contact.html">Contact Admissions</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+   <script>
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    if (!loggedIn) {
+        window.location.href = "login.html";
+    }
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+
+        document.getElementById("welcome-message").textContent =
+            "Welcome, " + user.name + "!";
+
+        document.getElementById("student-name").textContent =
+            user.name;
+
+        document.getElementById("student-email").textContent =
+            user.email;
+    }
+
+    const loginCount =
+        localStorage.getItem("loginCount") || 0;
+
+    const loginCountEl =
+        document.getElementById("login-count");
+
+    if (loginCountEl) {
+        loginCountEl.textContent = loginCount;
+    }
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            localStorage.removeItem("loggedIn");
+
+            window.location.href = "login.html";
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
